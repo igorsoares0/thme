@@ -1,4 +1,16 @@
-/* Button Color Overrides for Versed Brand Consistency */
+/* Button Color and Font Overrides for Versed Brand Consistency */
+
+/* Global font family override for all buttons */
+button,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+.btn,
+.button,
+a.btn,
+a.button {
+  font-family: var(--font-accent--family) !important;
+}
 
 /* Override any green buttons to use Versed sage green */
 button[style*="background-color: rgb(76, 175, 80)"],
@@ -130,6 +142,7 @@ input[type="submit"][value*="Submit"]:hover {
   background-color: var(--color-sage-green);
   color: var(--color-pure-white);
   border: 1px solid var(--color-sage-green);
+  font-family: var(--font-accent--family);
   transition: all var(--transition-base);
 }
 
@@ -147,6 +160,7 @@ input[type="submit"][value*="Submit"]:hover {
   background-color: var(--color-sage-green-light);
   color: var(--color-deep-black);
   border: 1px solid var(--color-sage-green-light);
+  font-family: var(--font-accent--family);
 }
 
 .btn--sage-light:hover,
@@ -162,6 +176,7 @@ input[type="submit"][value*="Submit"]:hover {
   background-color: transparent;
   color: var(--color-sage-green);
   border: 1px solid var(--color-sage-green);
+  font-family: var(--font-accent--family);
 }
 
 .btn--sage-outline:hover,
