@@ -1,0 +1,390 @@
+<section class="versed-before-after">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title | default: "Real Results" }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: "See the transformative power of our products through real customer results" }}</p>
+    </div>
+    
+    <div class="comparison-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'comparison' %}
+          <div class="comparison-item">
+            <div class="comparison-images">
+              <div class="image-container">
+                {% if block.settings.before_image %}
+                  <div class="before-image">
+                    <img src="{{ block.settings.before_image | img_url: '400x400' }}" alt="Before using {{ block.settings.product_name }}">
+                    <span class="image-label">Before</span>
+                  </div>
+                {% endif %}
+                
+                {% if block.settings.after_image %}
+                  <div class="after-image">
+                    <img src="{{ block.settings.after_image | img_url: '400x400' }}" alt="After using {{ block.settings.product_name }}">
+                    <span class="image-label">After</span>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+            
+            <div class="comparison-details">
+              <h3 class="product-name">{{ block.settings.product_name }}</h3>
+              
+              {% if block.settings.timeframe %}
+                <div class="timeframe">{{ block.settings.timeframe }}</div>
+              {% endif %}
+              
+              {% if block.settings.testimonial %}
+                <blockquote class="testimonial">
+                  "{{ block.settings.testimonial }}"
+                </blockquote>
+              {% endif %}
+              
+              {% if block.settings.customer_name %}
+                <div class="customer-info">
+                  <span class="customer-name">— {{ block.settings.customer_name }}</span>
+                  {% if block.settings.customer_age %}
+                    <span class="customer-age">, {{ block.settings.customer_age }}</span>
+                  {% endif %}
+                </div>
+              {% endif %}
+              
+              {% if block.settings.product_url %}
+                <div class="product-cta">
+                  <a href="{{ block.settings.product_url }}" class="btn btn-outline">
+                    Shop {{ block.settings.product_name }}
+                  </a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.show_disclaimer %}
+      <div class="results-disclaimer">
+        <p>{{ section.settings.disclaimer_text | default: "Results may vary. Individual results are not guaranteed and may depend on various factors including skin type, lifestyle, and product usage." }}</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+.versed-before-after {
+  padding: 5rem 0;
+  background: #F9F9F9;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #000000;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.comparison-item {
+  background: #FFFFFF;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.comparison-item:hover {
+  transform: translateY(-5px);
+}
+
+.image-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.before-image,
+.after-image {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.before-image img,
+.after-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.comparison-item:hover .before-image img,
+.comparison-item:hover .after-image img {
+  transform: scale(1.05);
+}
+
+.image-label {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(0,0,0,0.8);
+  color: #FFFFFF;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.after-image .image-label {
+  background: #4CAF50;
+}
+
+.comparison-details {
+  padding: 2rem;
+}
+
+.product-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.timeframe {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.testimonial {
+  font-style: italic;
+  color: #333;
+  line-height: 1.5;
+  margin: 1rem 0;
+  font-size: 1rem;
+}
+
+.customer-info {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.customer-name {
+  font-weight: 500;
+}
+
+.product-cta {
+  margin-top: auto;
+}
+
+.btn-outline {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: #000000;
+  border: 2px solid #000000;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.results-disclaimer {
+  text-align: center;
+  background: #FFFFFF;
+  padding: 2rem;
+  border-radius: 8px;
+  border-left: 4px solid #FFC107;
+}
+
+.results-disclaimer p {
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.4;
+  margin: 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .versed-before-after {
+    padding: 3rem 0;
+  }
+  
+  .comparison-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .comparison-details {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .comparison-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .image-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .results-disclaimer {
+    padding: 1.5rem;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Versed Before/After",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Real Results"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "See the transformative power of our products through real customer results"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_disclaimer",
+      "label": "Show Results Disclaimer",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "disclaimer_text",
+      "label": "Disclaimer Text",
+      "default": "Results may vary. Individual results are not guaranteed and may depend on various factors including skin type, lifestyle, and product usage."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "comparison",
+      "name": "Before/After Comparison",
+      "settings": [
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product Name",
+          "default": "Doux Cleanser"
+        },
+        {
+          "type": "image_picker",
+          "id": "before_image",
+          "label": "Before Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "after_image",
+          "label": "After Image"
+        },
+        {
+          "type": "text",
+          "id": "timeframe",
+          "label": "Timeframe",
+          "default": "After 4 weeks of use"
+        },
+        {
+          "type": "textarea",
+          "id": "testimonial",
+          "label": "Customer Testimonial"
+        },
+        {
+          "type": "text",
+          "id": "customer_name",
+          "label": "Customer Name"
+        },
+        {
+          "type": "text",
+          "id": "customer_age",
+          "label": "Customer Age"
+        },
+        {
+          "type": "url",
+          "id": "product_url",
+          "label": "Product URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Versed Before/After",
+      "blocks": [
+        {
+          "type": "comparison",
+          "settings": {
+            "product_name": "Doux Cleanser",
+            "timeframe": "After 4 weeks of use",
+            "testimonial": "My skin has never felt so clean and smooth. The texture is amazing and my pores look so much smaller!",
+            "customer_name": "Sarah M.",
+            "customer_age": "28"
+          }
+        },
+        {
+          "type": "comparison",
+          "settings": {
+            "product_name": "Day Maker Morning Moisturizer",
+            "timeframe": "After 6 weeks of use",
+            "testimonial": "This moisturizer completely transformed my dry, dull skin. It's now glowing and hydrated all day long.",
+            "customer_name": "Maya L.",
+            "customer_age": "35"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

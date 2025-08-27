@@ -1,0 +1,631 @@
+<section class="versed-newsletter">
+  <div class="container">
+    <div class="newsletter-content">
+      <div class="newsletter-visual">
+        {% if section.settings.image %}
+          <div class="newsletter-image">
+            <img src="{{ section.settings.image | img_url: '500x400' }}" alt="{{ section.settings.title }}">
+          </div>
+        {% endif %}
+        
+        <div class="visual-elements">
+          {% for block in section.blocks %}
+            {% if block.type == 'benefit' %}
+              <div class="benefit-item">
+                {% if block.settings.icon %}
+                  <div class="benefit-icon">
+                    <img src="{{ block.settings.icon | img_url: '30x30' }}" alt="{{ block.settings.title }}">
+                  </div>
+                {% endif %}
+                <div class="benefit-content">
+                  <h4 class="benefit-title">{{ block.settings.title }}</h4>
+                  <p class="benefit-description">{{ block.settings.description }}</p>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      
+      <div class="newsletter-form-section">
+        <div class="form-header">
+          <h2 class="section-title">{{ section.settings.title | default: "Join Our Newsletter" }}</h2>
+          <p class="section-subtitle">{{ section.settings.subtitle | default: "Get exclusive skincare tips, product launches, and special offers delivered to your inbox" }}</p>
+        </div>
+        
+        <form class="newsletter-form" action="#" method="post" data-newsletter-form>
+          <div class="form-group">
+            <label for="newsletter-email" class="sr-only">Email Address</label>
+            <input 
+              type="email" 
+              id="newsletter-email"
+              name="email" 
+              placeholder="{{ section.settings.email_placeholder | default: 'Enter your email address' }}"
+              required
+              class="email-input"
+            >
+          </div>
+          
+          {% if section.settings.show_name_field %}
+            <div class="form-group">
+              <label for="newsletter-name" class="sr-only">First Name</label>
+              <input 
+                type="text" 
+                id="newsletter-name"
+                name="name" 
+                placeholder="{{ section.settings.name_placeholder | default: 'First Name (Optional)' }}"
+                class="name-input"
+              >
+            </div>
+          {% endif %}
+          
+          {% if section.settings.show_interests %}
+            <div class="form-group interests-group">
+              <label class="interests-label">{{ section.settings.interests_label | default: "What interests you most?" }}</label>
+              <div class="interests-checkboxes">
+                {% assign interests = section.settings.interests_list | split: ',' %}
+                {% for interest in interests %}
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="interests" value="{{ interest | strip }}">
+                    <span class="checkbox-text">{{ interest | strip }}</span>
+                  </label>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+          
+          <button type="submit" class="btn btn-primary submit-btn">
+            {{ section.settings.button_text | default: "Subscribe Now" }}
+          </button>
+          
+          {% if section.settings.show_privacy_notice %}
+            <div class="privacy-notice">
+              <p>{{ section.settings.privacy_text | default: "By subscribing, you agree to our Privacy Policy and consent to receive updates from our company." }}
+              {% if section.settings.privacy_url %}
+                <a href="{{ section.settings.privacy_url }}">Learn more</a>
+              {% endif %}
+              </p>
+            </div>
+          {% endif %}
+        </form>
+        
+        {% if section.settings.show_social_proof %}
+          <div class="social-proof">
+            <div class="subscriber-count">
+              <span class="count-number">{{ section.settings.subscriber_count | default: "25,000+" }}</span>
+              <span class="count-label">{{ section.settings.subscriber_label | default: "skincare enthusiasts already subscribed" }}</span>
+            </div>
+            
+            {% if section.settings.show_testimonial %}
+              <div class="newsletter-testimonial">
+                <blockquote>"{{ section.settings.testimonial_text }}"</blockquote>
+                <cite>— {{ section.settings.testimonial_author }}</cite>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.versed-newsletter {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.newsletter-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.newsletter-image {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  margin-bottom: 2rem;
+}
+
+.newsletter-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.visual-elements {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: rgba(255,255,255,0.8);
+  padding: 1.5rem;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.benefit-icon {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+}
+
+.benefit-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.benefit-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.benefit-description {
+  color: #666;
+  line-height: 1.4;
+  font-size: 0.9rem;
+}
+
+.newsletter-form-section {
+  background: #FFFFFF;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: #000000;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+.email-input,
+.name-input {
+  padding: 1rem 1.2rem;
+  border: 2px solid #E0E0E0;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.email-input:focus,
+.name-input:focus {
+  outline: none;
+  border-color: #000000;
+}
+
+.interests-group {
+  margin-top: 0.5rem;
+}
+
+.interests-label {
+  font-weight: 500;
+  color: #000000;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.interests-checkboxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.checkbox-label:hover {
+  background: #F5F5F5;
+}
+
+.checkbox-label input[type="checkbox"] {
+  margin-right: 0.75rem;
+}
+
+.checkbox-text {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.btn-primary {
+  background: #000000;
+  color: #FFFFFF;
+  border: none;
+  padding: 1.2rem 2rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary:hover {
+  background: #333;
+  transform: translateY(-1px);
+}
+
+.privacy-notice {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.privacy-notice p {
+  font-size: 0.8rem;
+  color: #888;
+  line-height: 1.4;
+}
+
+.privacy-notice a {
+  color: #000000;
+  text-decoration: underline;
+}
+
+.social-proof {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #E0E0E0;
+  text-align: center;
+}
+
+.subscriber-count {
+  margin-bottom: 1.5rem;
+}
+
+.count-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #000000;
+  line-height: 1;
+}
+
+.count-label {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.newsletter-testimonial {
+  background: #F9F9F9;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.newsletter-testimonial blockquote {
+  font-style: italic;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.newsletter-testimonial cite {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .versed-newsletter {
+    padding: 3rem 0;
+  }
+  
+  .newsletter-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .newsletter-visual {
+    order: -1;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .newsletter-form-section {
+    padding: 2rem;
+  }
+  
+  .interests-checkboxes {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .newsletter-form-section {
+    padding: 1.5rem;
+  }
+  
+  .benefit-item {
+    padding: 1rem;
+  }
+  
+  .section-title {
+    font-size: 1.6rem;
+  }
+}
+{% endstylesheet %}
+
+{% javascript %}
+document.addEventListener('DOMContentLoaded', function() {
+  const newsletterForm = document.querySelector('[data-newsletter-form]');
+  
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const submitBtn = this.querySelector('.submit-btn');
+      const originalText = submitBtn.textContent;
+      
+      // Show loading state
+      submitBtn.textContent = 'Subscribing...';
+      submitBtn.disabled = true;
+      
+      // Get form data
+      const formData = new FormData(this);
+      const email = formData.get('email');
+      const name = formData.get('name');
+      const interests = formData.getAll('interests');
+      
+      // Here you would typically send the data to your newsletter service
+      console.log('Newsletter signup:', {
+        email: email,
+        name: name,
+        interests: interests
+      });
+      
+      // Simulate API call
+      setTimeout(() => {
+        submitBtn.textContent = '✓ Subscribed!';
+        submitBtn.style.background = '#4CAF50';
+        
+        // Reset form after delay
+        setTimeout(() => {
+          this.reset();
+          submitBtn.textContent = originalText;
+          submitBtn.style.background = '';
+          submitBtn.disabled = false;
+        }, 3000);
+      }, 1500);
+    });
+  }
+});
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Versed Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Join Our Newsletter"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Get exclusive skincare tips, product launches, and special offers delivered to your inbox"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Newsletter Image"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Placeholder Text",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_name_field",
+      "label": "Show Name Field",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "name_placeholder",
+      "label": "Name Placeholder Text",
+      "default": "First Name (Optional)"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Subscribe Now"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_interests",
+      "label": "Show Interests Selection",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "interests_label",
+      "label": "Interests Label",
+      "default": "What interests you most?"
+    },
+    {
+      "type": "textarea",
+      "id": "interests_list",
+      "label": "Interests Options (comma separated)",
+      "default": "Skincare Tips, New Product Launches, Exclusive Offers, Ingredient Education"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_privacy_notice",
+      "label": "Show Privacy Notice",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "privacy_text",
+      "label": "Privacy Notice Text",
+      "default": "By subscribing, you agree to our Privacy Policy and consent to receive updates from our company."
+    },
+    {
+      "type": "url",
+      "id": "privacy_url",
+      "label": "Privacy Policy URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_proof",
+      "label": "Show Social Proof",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "subscriber_count",
+      "label": "Subscriber Count",
+      "default": "25,000+"
+    },
+    {
+      "type": "text",
+      "id": "subscriber_label",
+      "label": "Subscriber Count Label",
+      "default": "skincare enthusiasts already subscribed"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_testimonial",
+      "label": "Show Newsletter Testimonial",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_text",
+      "label": "Testimonial Text",
+      "default": "I love getting the weekly skincare tips! They've really helped improve my routine."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_author",
+      "label": "Testimonial Author",
+      "default": "Sarah K., Subscriber"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Newsletter Benefit",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Benefit Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Benefit Title",
+          "default": "Expert Tips"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Benefit Description",
+          "default": "Get weekly skincare advice from dermatologists and beauty experts."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Versed Newsletter",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Expert Tips",
+            "description": "Get weekly skincare advice from dermatologists and beauty experts."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Early Access",
+            "description": "Be the first to know about new product launches and exclusive offers."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Personalized Content",
+            "description": "Receive curated content based on your skin type and concerns."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

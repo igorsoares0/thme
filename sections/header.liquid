@@ -1,0 +1,363 @@
+<header class="header">
+  <div class="header__container">
+    <!-- Logo -->
+    <div class="header__logo">
+      <h1 class="header__title">
+        <a href="{{ routes.root_url }}" class="header__title-link">
+          {% if section.settings.logo %}
+            <img src="{{ section.settings.logo | img_url: '200x' }}" alt="{{ shop.name }}" class="header__logo-image">
+          {% else %}
+            <span class="header__logo-text">{{ shop.name }}</span>
+          {% endif %}
+        </a>
+      </h1>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="header__nav" role="navigation">
+      <ul class="header__menu">
+        {% for link in section.settings.menu.links %}
+          <li class="header__menu-item">
+            <a href="{{ link.url }}" class="header__menu-link">
+              {{ link.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header__actions">
+      <!-- Search Icon -->
+      <button class="header__action-btn header__search-toggle" aria-label="Toggle Search">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <!-- Account Icon -->
+      {% if shop.customer_accounts_enabled %}
+        <a href="{{ routes.account_url }}" class="header__action-btn" aria-label="Account">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      {% endif %}
+
+      <!-- Cart Icon -->
+      <a href="{{ routes.cart_url }}" class="header__action-btn header__cart" aria-label="Cart">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5H4M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17M17 13v4a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-4m8-5a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        {% if cart.item_count > 0 %}
+          <span class="header__cart-count">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="header__mobile-toggle" aria-label="Toggle Navigation" aria-expanded="false">
+        <span class="header__hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div class="header__mobile-nav">
+    <ul class="header__mobile-menu">
+      {% for link in section.settings.menu.links %}
+        <li class="header__mobile-menu-item">
+          <a href="{{ link.url }}" class="header__mobile-menu-link">
+            {{ link.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</header>
+
+{% stylesheet %}
+  .header {
+    position: sticky;
+    top: 0;
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-border);
+    z-index: 50;
+    transition: all var(--transition-base);
+  }
+
+  .header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-lg) var(--page-margin);
+    width: 100%;
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+  }
+
+  /* Logo Styles */
+  .header__logo {
+    flex-shrink: 0;
+  }
+
+  .header__title {
+    margin: 0;
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .header__title-link {
+    text-decoration: none;
+    color: var(--color-foreground);
+    transition: color var(--transition-base);
+  }
+
+  .header__title-link:hover {
+    color: var(--color-primary);
+  }
+
+  .header__logo-image {
+    height: 32px;
+    width: auto;
+  }
+
+  .header__logo-text {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Navigation Styles */
+  .header__nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header__menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: var(--spacing-xl);
+  }
+
+  .header__menu-item {
+    position: relative;
+  }
+
+  .header__menu-link {
+    display: block;
+    padding: var(--spacing-sm) 0;
+    text-decoration: none;
+    color: var(--color-foreground);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color var(--transition-base);
+    position: relative;
+  }
+
+  .header__menu-link:hover {
+    color: var(--color-primary);
+  }
+
+  .header__menu-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background-color: var(--color-primary);
+    transition: all var(--transition-base);
+    transform: translateX(-50%);
+  }
+
+  .header__menu-link:hover::after {
+    width: 100%;
+  }
+
+  /* Action Buttons */
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+
+  .header__action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    color: var(--color-foreground);
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: var(--radius-full);
+    transition: all var(--transition-base);
+    position: relative;
+  }
+
+  .header__action-btn:hover {
+    background-color: var(--color-light-gray);
+    color: var(--color-primary);
+  }
+
+  .header__cart-count {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: var(--color-deep-black);
+    color: var(--color-pure-white);
+    font-size: 10px;
+    font-weight: 600;
+    min-width: 16px;
+    height: 16px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  /* Mobile Menu Toggle */
+  .header__mobile-toggle {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-sm);
+  }
+
+  .header__hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .header__hamburger span {
+    width: 20px;
+    height: 2px;
+    background-color: var(--color-foreground);
+    transition: all var(--transition-base);
+  }
+
+  /* Mobile Navigation */
+  .header__mobile-nav {
+    display: none;
+    padding: var(--spacing-lg);
+    border-top: 1px solid var(--color-border);
+    background-color: var(--color-background);
+  }
+
+  .header__mobile-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header__mobile-menu-item {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header__mobile-menu-item:last-child {
+    border-bottom: none;
+  }
+
+  .header__mobile-menu-link {
+    display: block;
+    padding: var(--spacing-lg) 0;
+    text-decoration: none;
+    color: var(--color-foreground);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    transition: color var(--transition-base);
+  }
+
+  .header__mobile-menu-link:hover {
+    color: var(--color-primary);
+  }
+
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .header__nav {
+      display: none;
+    }
+
+    .header__mobile-toggle {
+      display: flex;
+    }
+
+    .header__actions {
+      gap: var(--spacing-sm);
+    }
+
+    .header__action-btn {
+      width: 40px;
+      height: 40px;
+    }
+
+    /* Mobile menu active state */
+    .header__mobile-nav.active {
+      display: block;
+    }
+
+    .header__mobile-toggle[aria-expanded="true"] .header__hamburger span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .header__mobile-toggle[aria-expanded="true"] .header__hamburger span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .header__mobile-toggle[aria-expanded="true"] .header__hamburger span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header__container {
+      padding-left: var(--spacing-md);
+      padding-right: var(--spacing-md);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Header Appearance"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "label": "Sticky Header",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

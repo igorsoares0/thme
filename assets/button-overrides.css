@@ -1,0 +1,258 @@
+/* Button Color Overrides for Versed Brand Consistency */
+
+/* Override any green buttons to use Versed sage green */
+button[style*="background-color: rgb(76, 175, 80)"],
+button[style*="background-color: #4caf50"],
+button[style*="background-color: rgb(67, 160, 71)"],
+button[style*="background-color: #43a047"],
+.btn-success,
+.button-success,
+.green-button,
+.btn.btn-success,
+button.success,
+input[type="submit"][class*="green"],
+input[type="submit"][style*="green"],
+button[class*="green"]:not([class*="sage"]),
+/* Specific Write a Review button selectors */
+.btn.btn-primary:contains("Write a Review"),
+a.btn.btn-primary:contains("Write a Review"),
+button:contains("Write a Review"),
+.btn:contains("Write a Review"),
+a[href*="review"].btn.btn-primary,
+button.btn.btn-primary[onclick*="review"],
+.review-button,
+#write-review-btn,
+[data-action="write-review"],
+[id*="write-review"],
+[class*="write-review"],
+.spr-summary-actions-newreview {
+  background-color: var(--color-sage-green) !important;
+  border-color: var(--color-sage-green) !important;
+  color: var(--color-pure-white) !important;
+  transition: all var(--transition-base) !important;
+}
+
+/* Hover states for overridden green buttons */
+button[style*="background-color: rgb(76, 175, 80)"]:hover,
+button[style*="background-color: #4caf50"]:hover,
+button[style*="background-color: rgb(67, 160, 71)"]:hover,
+button[style*="background-color: #43a047"]:hover,
+.btn-success:hover,
+.button-success:hover,
+.green-button:hover,
+.btn.btn-success:hover,
+button.success:hover,
+input[type="submit"][class*="green"]:hover,
+input[type="submit"][style*="green"]:hover,
+button[class*="green"]:not([class*="sage"]):hover {
+  background-color: var(--color-sage-green-dark) !important;
+  border-color: var(--color-sage-green-dark) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(159, 166, 150, 0.3) !important;
+}
+
+/* Specific overrides for common review/app buttons */
+.spr-button,
+.spr-button-primary,
+.yotpo-button,
+.klaviyo-button,
+.reviews-button,
+button[data-action*="review"],
+button[data-action*="subscribe"],
+a[href*="review"]:not([class*="secondary"]),
+a[class*="review"]:not([class*="secondary"]),
+.btn:has-text("Write a Review"),
+.btn:has-text("Review"),
+.btn:has-text("Submit Review") {
+  background-color: var(--color-sage-green) !important;
+  border-color: var(--color-sage-green) !important;
+  color: var(--color-pure-white) !important;
+}
+
+.spr-button:hover,
+.spr-button-primary:hover,
+.yotpo-button:hover,
+.klaviyo-button:hover,
+.reviews-button:hover,
+button[data-action*="review"]:hover,
+button[data-action*="subscribe"]:hover,
+a[href*="review"]:not([class*="secondary"]):hover,
+a[class*="review"]:not([class*="secondary"]):hover,
+.btn:has-text("Write a Review"):hover,
+.btn:has-text("Review"):hover,
+.btn:has-text("Submit Review"):hover {
+  background-color: var(--color-sage-green-dark) !important;
+  border-color: var(--color-sage-green-dark) !important;
+}
+
+/* Specific targeting for "Write a Review" text content */
+.btn.btn-primary:has-text("Write a Review"),
+.btn.btn-primary:has-text("Write Review"),
+.btn.btn-primary:has-text("Submit Review"),
+.btn.btn-primary:has-text("Add Review"),
+a.btn.btn-primary[href*="#reviews"],
+a.btn.btn-primary[href*="review"] {
+  background-color: var(--color-sage-green) !important;
+  border-color: var(--color-sage-green) !important;
+  color: var(--color-pure-white) !important;
+}
+
+.btn.btn-primary:has-text("Write a Review"):hover,
+.btn.btn-primary:has-text("Write Review"):hover,
+.btn.btn-primary:has-text("Submit Review"):hover,
+.btn.btn-primary:has-text("Add Review"):hover,
+a.btn.btn-primary[href*="#reviews"]:hover,
+a.btn.btn-primary[href*="review"]:hover {
+  background-color: var(--color-sage-green-dark) !important;
+  border-color: var(--color-sage-green-dark) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(159, 166, 150, 0.3) !important;
+}
+
+/* Override bright green colors in forms */
+input[type="submit"][value*="Review"],
+input[type="submit"][value*="Subscribe"],
+input[type="submit"][value*="Submit"] {
+  background-color: var(--color-sage-green) !important;
+  border-color: var(--color-sage-green) !important;
+  color: var(--color-pure-white) !important;
+}
+
+input[type="submit"][value*="Review"]:hover,
+input[type="submit"][value*="Subscribe"]:hover,
+input[type="submit"][value*="Submit"]:hover {
+  background-color: var(--color-sage-green-dark) !important;
+}
+
+/* Accent button class for intentional sage green usage */
+.btn--sage,
+.button--sage {
+  background-color: var(--color-sage-green);
+  color: var(--color-pure-white);
+  border: 1px solid var(--color-sage-green);
+  transition: all var(--transition-base);
+}
+
+.btn--sage:hover,
+.button--sage:hover {
+  background-color: var(--color-sage-green-dark);
+  border-color: var(--color-sage-green-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(159, 166, 150, 0.3);
+}
+
+/* Light sage variant */
+.btn--sage-light,
+.button--sage-light {
+  background-color: var(--color-sage-green-light);
+  color: var(--color-deep-black);
+  border: 1px solid var(--color-sage-green-light);
+}
+
+.btn--sage-light:hover,
+.button--sage-light:hover {
+  background-color: var(--color-sage-green);
+  color: var(--color-pure-white);
+  border-color: var(--color-sage-green);
+}
+
+/* Outline sage variant */
+.btn--sage-outline,
+.button--sage-outline {
+  background-color: transparent;
+  color: var(--color-sage-green);
+  border: 1px solid var(--color-sage-green);
+}
+
+.btn--sage-outline:hover,
+.button--sage-outline:hover {
+  background-color: var(--color-sage-green);
+  color: var(--color-pure-white);
+}
+
+/* Focus states for accessibility */
+button:focus,
+input[type="submit"]:focus,
+.btn:focus {
+  outline: 2px solid var(--color-sage-green);
+  outline-offset: 2px;
+}
+
+/* Universal review button fix - catches any button with "review" text */
+*[class*="btn"]:not([class*="secondary"]):not([class*="outline"]):not([class*="ghost"]) {
+  /* Only apply to buttons that contain review-related text */
+}
+
+/* More aggressive targeting for review buttons */
+.btn.btn-primary,
+button.btn-primary,
+a.btn.btn-primary,
+input[type="submit"].btn-primary,
+.btn-success,
+.button-success,
+button.success {
+  /* This will be overridden by JavaScript for review buttons */
+}
+
+/* Force override for common review app classes */
+.spr-summary-actions a,
+.spr-summary-actions button,
+.yotpo-button-primary,
+.reviews-widget button,
+.review-form button[type="submit"],
+.write-review-button,
+[data-testid*="review"] button,
+[data-cy*="review"] button {
+  background-color: var(--color-sage-green) !important;
+  border-color: var(--color-sage-green) !important;
+  color: var(--color-pure-white) !important;
+  transition: all var(--transition-base) !important;
+}
+
+.spr-summary-actions a:hover,
+.spr-summary-actions button:hover,
+.yotpo-button-primary:hover,
+.reviews-widget button:hover,
+.review-form button[type="submit"]:hover,
+.write-review-button:hover,
+[data-testid*="review"] button:hover,
+[data-cy*="review"] button:hover {
+  background-color: var(--color-sage-green-dark) !important;
+  border-color: var(--color-sage-green-dark) !important;
+}
+
+/* Shopify Product Reviews App specific */
+.spr-container .spr-header .spr-summary-actions .spr-summary-actions-newreview {
+  background-color: var(--color-sage-green) !important;
+  border-color: var(--color-sage-green) !important;
+  color: var(--color-pure-white) !important;
+}
+
+.spr-container .spr-header .spr-summary-actions .spr-summary-actions-newreview:hover {
+  background-color: var(--color-sage-green-dark) !important;
+}
+
+/* Judge.me Reviews */
+.jdgm-write-review-btn,
+.jdgm-rev-widg__write-btn {
+  background-color: var(--color-sage-green) !important;
+  border-color: var(--color-sage-green) !important;
+  color: var(--color-pure-white) !important;
+}
+
+.jdgm-write-review-btn:hover,
+.jdgm-rev-widg__write-btn:hover {
+  background-color: var(--color-sage-green-dark) !important;
+}
+
+/* Disabled states */
+button:disabled,
+input[type="submit"]:disabled,
+.btn:disabled {
+  background-color: var(--color-light-gray) !important;
+  color: var(--color-text-muted) !important;
+  border-color: var(--color-border) !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+}

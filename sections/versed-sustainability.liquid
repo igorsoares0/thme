@@ -1,0 +1,870 @@
+<section class="versed-sustainability">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title | default: "Our Commitment to Sustainability" }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: "We believe beautiful skin and a beautiful planet go hand in hand" }}</p>
+    </div>
+    
+    <div class="sustainability-content">
+      <div class="values-grid">
+        {% for block in section.blocks %}
+          {% if block.type == 'value' %}
+            <div class="value-card">
+              {% if block.settings.icon %}
+                <div class="value-icon">
+                  <img src="{{ block.settings.icon | img_url: '60x60' }}" alt="{{ block.settings.title }}">
+                </div>
+              {% endif %}
+              
+              <div class="value-content">
+                <h3 class="value-title">{{ block.settings.title }}</h3>
+                <p class="value-description">{{ block.settings.description }}</p>
+                
+                {% if block.settings.stat_number %}
+                  <div class="value-stat">
+                    <span class="stat-number">{{ block.settings.stat_number }}</span>
+                    <span class="stat-label">{{ block.settings.stat_label }}</span>
+                  </div>
+                {% endif %}
+                
+                {% if block.settings.learn_more_url %}
+                  <a href="{{ block.settings.learn_more_url }}" class="value-link">
+                    Learn More →
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      
+      <div class="sustainability-features">
+        <div class="feature-highlight">
+          <div class="feature-content">
+            <h3>{{ section.settings.feature_title | default: "Carbon Neutral Shipping" }}</h3>
+            <p>{{ section.settings.feature_description | default: "Every order ships carbon neutral at no extra cost to you. We offset 100% of our shipping emissions through verified carbon reduction projects." }}</p>
+            
+            <div class="feature-benefits">
+              {% assign benefits = section.settings.feature_benefits | split: ',' %}
+              {% for benefit in benefits %}
+                <div class="benefit-item">
+                  <span class="benefit-check">✓</span>
+                  <span>{{ benefit | strip }}</span>
+                </div>
+              {% endfor %}
+            </div>
+            
+            {% if section.settings.feature_cta_url %}
+              <a href="{{ section.settings.feature_cta_url }}" class="btn btn-outline">
+                {{ section.settings.feature_cta_text | default: "Learn About Our Impact" }}
+              </a>
+            {% endif %}
+          </div>
+          
+          {% if section.settings.feature_image %}
+            <div class="feature-image">
+              <img src="{{ section.settings.feature_image | img_url: '500x400' }}" alt="{{ section.settings.feature_title }}">
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      
+      {% if section.settings.show_certifications %}
+        <div class="certifications-section">
+          <h3>{{ section.settings.certifications_title | default: "Our Certifications" }}</h3>
+          <div class="certifications-grid">
+            {% for block in section.blocks %}
+              {% if block.type == 'certification' %}
+                <div class="certification-item">
+                  {% if block.settings.logo %}
+                    <div class="certification-logo">
+                      <img src="{{ block.settings.logo | img_url: '80x80' }}" alt="{{ block.settings.name }}">
+                    </div>
+                  {% endif %}
+                  <div class="certification-info">
+                    <h4 class="certification-name">{{ block.settings.name }}</h4>
+                    <p class="certification-description">{{ block.settings.description }}</p>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+      
+      {% if section.settings.show_goals %}
+        <div class="sustainability-goals">
+          <h3>{{ section.settings.goals_title | default: "2030 Sustainability Goals" }}</h3>
+          <div class="goals-timeline">
+            {% for block in section.blocks %}
+              {% if block.type == 'goal' %}
+                <div class="goal-item">
+                  <div class="goal-year">{{ block.settings.target_year | default: "2030" }}</div>
+                  <div class="goal-content">
+                    <h4 class="goal-title">{{ block.settings.title }}</h4>
+                    <p class="goal-description">{{ block.settings.description }}</p>
+                    {% if block.settings.progress %}
+                      <div class="goal-progress">
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: {{ block.settings.progress }}%"></div>
+                        </div>
+                        <span class="progress-text">{{ block.settings.progress }}% Complete</span>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+    
+    {% if section.settings.show_cta %}
+      <div class="sustainability-cta">
+        <div class="cta-content">
+          <h3>{{ section.settings.cta_title | default: "Join Our Mission" }}</h3>
+          <p>{{ section.settings.cta_description | default: "Together, we can create a more sustainable future for beauty" }}</p>
+          <div class="cta-actions">
+            {% if section.settings.primary_cta_url %}
+              <a href="{{ section.settings.primary_cta_url }}" class="btn btn-primary">
+                {{ section.settings.primary_cta_text | default: "Learn More" }}
+              </a>
+            {% endif %}
+            {% if section.settings.secondary_cta_url %}
+              <a href="{{ section.settings.secondary_cta_url }}" class="btn btn-secondary">
+                {{ section.settings.secondary_cta_text | default: "View Impact Report" }}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+.versed-sustainability {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #F0F8F0 0%, #E8F5E8 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #000000;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.sustainability-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.value-card {
+  background: #FFFFFF;
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+.value-icon {
+  margin-bottom: 1.5rem;
+}
+
+.value-icon img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.value-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 1rem;
+}
+
+.value-description {
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.value-stat {
+  margin-bottom: 1.5rem;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #4CAF50;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.value-link {
+  color: #4CAF50;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.value-link:hover {
+  color: #388E3C;
+}
+
+.feature-highlight {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  background: #FFFFFF;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.feature-content h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 1rem;
+}
+
+.feature-content p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+}
+
+.feature-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.benefit-check {
+  color: #4CAF50;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.feature-image {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.feature-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #4CAF50;
+  border-color: #4CAF50;
+}
+
+.btn-outline:hover {
+  background: #4CAF50;
+  color: #FFFFFF;
+}
+
+.btn-primary {
+  background: #4CAF50;
+  color: #FFFFFF;
+  border-color: #4CAF50;
+}
+
+.btn-primary:hover {
+  background: #388E3C;
+  border-color: #388E3C;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #000000;
+  border-color: #000000;
+}
+
+.btn-secondary:hover {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.certifications-section {
+  text-align: center;
+}
+
+.certifications-section h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 2rem;
+}
+
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.certification-item {
+  background: #FFFFFF;
+  padding: 2rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.certification-logo img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.certification-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.certification-description {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+.sustainability-goals {
+  text-align: center;
+}
+
+.sustainability-goals h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 2rem;
+}
+
+.goals-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.goal-item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 2rem;
+  align-items: center;
+  text-align: left;
+}
+
+.goal-year {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #4CAF50;
+  text-align: center;
+}
+
+.goal-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.goal-description {
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.goal-progress {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 8px;
+  background: #E0E0E0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #4CAF50;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.sustainability-cta {
+  background: #FFFFFF;
+  padding: 3rem;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.cta-content h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 1rem;
+}
+
+.cta-content p {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .versed-sustainability {
+    padding: 3rem 0;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .values-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .value-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .feature-highlight {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .certifications-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .certification-item {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  
+  .goal-item {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .sustainability-cta {
+    padding: 2rem;
+  }
+  
+  .cta-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn {
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .values-grid {
+    gap: 1rem;
+  }
+  
+  .value-card {
+    padding: 1.5rem 1rem;
+  }
+  
+  .feature-highlight {
+    padding: 1.5rem;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Versed Sustainability",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Our Commitment to Sustainability"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "We believe beautiful skin and a beautiful planet go hand in hand"
+    },
+    {
+      "type": "text",
+      "id": "feature_title",
+      "label": "Feature Title",
+      "default": "Carbon Neutral Shipping"
+    },
+    {
+      "type": "textarea",
+      "id": "feature_description",
+      "label": "Feature Description",
+      "default": "Every order ships carbon neutral at no extra cost to you. We offset 100% of our shipping emissions through verified carbon reduction projects."
+    },
+    {
+      "type": "textarea",
+      "id": "feature_benefits",
+      "label": "Feature Benefits (comma separated)",
+      "default": "100% Carbon Neutral, No Extra Cost, Verified Projects, Real Impact"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_image",
+      "label": "Feature Image"
+    },
+    {
+      "type": "text",
+      "id": "feature_cta_text",
+      "label": "Feature CTA Text",
+      "default": "Learn About Our Impact"
+    },
+    {
+      "type": "url",
+      "id": "feature_cta_url",
+      "label": "Feature CTA URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_certifications",
+      "label": "Show Certifications Section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "certifications_title",
+      "label": "Certifications Title",
+      "default": "Our Certifications"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_goals",
+      "label": "Show Sustainability Goals",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "goals_title",
+      "label": "Goals Section Title",
+      "default": "2030 Sustainability Goals"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA Section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "CTA Title",
+      "default": "Join Our Mission"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_description",
+      "label": "CTA Description",
+      "default": "Together, we can create a more sustainable future for beauty"
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_text",
+      "label": "Primary CTA Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_url",
+      "label": "Primary CTA URL"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_text",
+      "label": "Secondary CTA Text",
+      "default": "View Impact Report"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_url",
+      "label": "Secondary CTA URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Sustainability Value",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Value Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Value Title",
+          "default": "Eco-Friendly Packaging"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Value Description",
+          "default": "All our packaging is recyclable and made from post-consumer recycled materials."
+        },
+        {
+          "type": "text",
+          "id": "stat_number",
+          "label": "Statistic Number",
+          "default": "100%"
+        },
+        {
+          "type": "text",
+          "id": "stat_label",
+          "label": "Statistic Label",
+          "default": "Recyclable"
+        },
+        {
+          "type": "url",
+          "id": "learn_more_url",
+          "label": "Learn More URL"
+        }
+      ]
+    },
+    {
+      "type": "certification",
+      "name": "Certification",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Certification Logo"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Certification Name",
+          "default": "Certified B Corp"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Certification Description",
+          "default": "Meeting the highest standards of social and environmental performance."
+        }
+      ]
+    },
+    {
+      "type": "goal",
+      "name": "Sustainability Goal",
+      "settings": [
+        {
+          "type": "text",
+          "id": "target_year",
+          "label": "Target Year",
+          "default": "2030"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Goal Title",
+          "default": "Carbon Neutral Operations"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Goal Description",
+          "default": "Achieve net-zero carbon emissions across all our operations and supply chain."
+        },
+        {
+          "type": "range",
+          "id": "progress",
+          "label": "Progress Percentage",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "default": 65
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Versed Sustainability",
+      "blocks": [
+        {
+          "type": "value",
+          "settings": {
+            "title": "Eco-Friendly Packaging",
+            "description": "All our packaging is recyclable and made from post-consumer recycled materials.",
+            "stat_number": "100%",
+            "stat_label": "Recyclable"
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Clean Ingredients",
+            "description": "We source sustainable, ethically-harvested ingredients that are gentle on your skin and the planet.",
+            "stat_number": "95%",
+            "stat_label": "Natural Origin"
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Water Conservation",
+            "description": "Our manufacturing processes use 40% less water than industry standards.",
+            "stat_number": "40%",
+            "stat_label": "Water Saved"
+          }
+        },
+        {
+          "type": "certification",
+          "settings": {
+            "name": "Certified B Corp",
+            "description": "Meeting the highest standards of social and environmental performance."
+          }
+        },
+        {
+          "type": "certification",
+          "settings": {
+            "name": "Leaping Bunny Certified",
+            "description": "Committed to no animal testing throughout our supply chain."
+          }
+        },
+        {
+          "type": "goal",
+          "settings": {
+            "target_year": "2025",
+            "title": "Plastic-Free Packaging",
+            "description": "Eliminate all plastic from our packaging and switch to biodegradable alternatives.",
+            "progress": 75
+          }
+        },
+        {
+          "type": "goal",
+          "settings": {
+            "target_year": "2028",
+            "title": "Renewable Energy",
+            "description": "Power all our facilities with 100% renewable energy sources.",
+            "progress": 45
+          }
+        },
+        {
+          "type": "goal",
+          "settings": {
+            "target_year": "2030",
+            "title": "Carbon Neutral Operations",
+            "description": "Achieve net-zero carbon emissions across all our operations and supply chain.",
+            "progress": 35
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

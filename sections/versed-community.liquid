@@ -1,0 +1,565 @@
+<section class="versed-community">
+  <div class="container">
+    <div class="community-content">
+      <div class="community-text">
+        <h2 class="section-title">{{ section.settings.title | default: "Join the Community" }}</h2>
+        <p class="section-description">{{ section.settings.description | default: "Connect with thousands of skincare enthusiasts who share tips, experiences, and celebrate healthy skin together." }}</p>
+        
+        <div class="community-stats">
+          {% for block in section.blocks %}
+            {% if block.type == 'stat' %}
+              <div class="stat-item">
+                <div class="stat-number">{{ block.settings.number }}</div>
+                <div class="stat-label">{{ block.settings.label }}</div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        
+        <div class="community-actions">
+          {% if section.settings.primary_cta_text and section.settings.primary_cta_url %}
+            <a href="{{ section.settings.primary_cta_url }}" class="btn btn-primary">
+              {{ section.settings.primary_cta_text }}
+            </a>
+          {% endif %}
+          
+          {% if section.settings.secondary_cta_text and section.settings.secondary_cta_url %}
+            <a href="{{ section.settings.secondary_cta_url }}" class="btn btn-secondary">
+              {{ section.settings.secondary_cta_text }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="community-visual">
+        {% if section.settings.community_image %}
+          <div class="community-image">
+            <img src="{{ section.settings.community_image | img_url: '600x500' }}" alt="{{ section.settings.title }}">
+          </div>
+        {% endif %}
+        
+        <div class="community-highlights">
+          {% for block in section.blocks %}
+            {% if block.type == 'highlight' %}
+              <div class="highlight-item">
+                {% if block.settings.icon %}
+                  <div class="highlight-icon">
+                    <img src="{{ block.settings.icon | img_url: '40x40' }}" alt="{{ block.settings.title }}">
+                  </div>
+                {% endif %}
+                <div class="highlight-content">
+                  <h4 class="highlight-title">{{ block.settings.title }}</h4>
+                  <p class="highlight-description">{{ block.settings.description }}</p>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    
+    {% if section.settings.show_user_content %}
+      <div class="user-content-section">
+        <h3 class="user-content-title">{{ section.settings.user_content_title | default: "Share Your Journey" }}</h3>
+        <p class="user-content-description">{{ section.settings.user_content_description | default: "Tag us @versed to be featured in our community" }}</p>
+        
+        <div class="hashtag-display">
+          {% if section.settings.hashtag %}
+            <span class="hashtag">#{{ section.settings.hashtag }}</span>
+          {% endif %}
+        </div>
+        
+        <div class="user-gallery">
+          {% for block in section.blocks %}
+            {% if block.type == 'user_post' %}
+              <div class="user-post">
+                {% if block.settings.image %}
+                  <div class="post-image">
+                    <img src="{{ block.settings.image | img_url: '200x200' }}" alt="Community post by {{ block.settings.username }}">
+                  </div>
+                {% endif %}
+                
+                <div class="post-info">
+                  <div class="post-username">@{{ block.settings.username }}</div>
+                  {% if block.settings.caption %}
+                    <div class="post-caption">{{ block.settings.caption }}</div>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+.versed-community {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #F9F9F9 0%, #F5F5F5 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.community-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #000000;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.section-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 3rem;
+}
+
+.community-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000000;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.community-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: #000000;
+  color: #FFFFFF;
+  border: 2px solid #000000;
+}
+
+.btn-primary:hover {
+  background: #333;
+  border-color: #333;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #000000;
+  border: 2px solid #000000;
+}
+
+.btn-secondary:hover {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.community-image {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  margin-bottom: 2rem;
+}
+
+.community-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.community-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: rgba(255,255,255,0.7);
+  padding: 1.5rem;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.highlight-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.highlight-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.highlight-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.highlight-description {
+  color: #666;
+  line-height: 1.4;
+  font-size: 0.9rem;
+}
+
+.user-content-section {
+  text-align: center;
+}
+
+.user-content-title {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #000000;
+  margin-bottom: 1rem;
+}
+
+.user-content-description {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.hashtag-display {
+  margin-bottom: 3rem;
+}
+
+.hashtag {
+  display: inline-block;
+  background: #000000;
+  color: #FFFFFF;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.user-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.user-post {
+  background: #FFFFFF;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.user-post:hover {
+  transform: translateY(-3px);
+}
+
+.post-image {
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.post-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-info {
+  padding: 1rem;
+}
+
+.post-username {
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.post-caption {
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .versed-community {
+    padding: 3rem 0;
+  }
+  
+  .community-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .community-visual {
+    order: -1;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .community-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .community-actions {
+    justify-content: center;
+  }
+  
+  .highlight-item {
+    text-align: left;
+  }
+  
+  .user-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .community-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .user-gallery {
+    grid-template-columns: 1fr;
+  }
+  
+  .highlight-item {
+    padding: 1rem;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Versed Community",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Join the Community"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Section Description",
+      "default": "Connect with thousands of skincare enthusiasts who share tips, experiences, and celebrate healthy skin together."
+    },
+    {
+      "type": "image_picker",
+      "id": "community_image",
+      "label": "Community Image"
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_text",
+      "label": "Primary CTA Text",
+      "default": "Join Our Community"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_url",
+      "label": "Primary CTA URL"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_text",
+      "label": "Secondary CTA Text",
+      "default": "Follow Us"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_url",
+      "label": "Secondary CTA URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_user_content",
+      "label": "Show User Content Section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "user_content_title",
+      "label": "User Content Title",
+      "default": "Share Your Journey"
+    },
+    {
+      "type": "textarea",
+      "id": "user_content_description",
+      "label": "User Content Description",
+      "default": "Tag us @versed to be featured in our community"
+    },
+    {
+      "type": "text",
+      "id": "hashtag",
+      "label": "Community Hashtag",
+      "default": "VersedSkin"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Community Stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Stat Number",
+          "default": "50K+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Stat Label",
+          "default": "Community Members"
+        }
+      ]
+    },
+    {
+      "type": "highlight",
+      "name": "Community Highlight",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Highlight Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Highlight Title",
+          "default": "Expert Tips"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Highlight Description",
+          "default": "Get skincare advice from our community of experts and enthusiasts."
+        }
+      ]
+    },
+    {
+      "type": "user_post",
+      "name": "User Post",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Post Image"
+        },
+        {
+          "type": "text",
+          "id": "username",
+          "label": "Username",
+          "default": "skincare_lover"
+        },
+        {
+          "type": "textarea",
+          "id": "caption",
+          "label": "Post Caption"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Versed Community",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "number": "50K+",
+            "label": "Community Members"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "1M+",
+            "label": "Posts Shared"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "95%",
+            "label": "Satisfaction Rate"
+          }
+        },
+        {
+          "type": "highlight",
+          "settings": {
+            "title": "Expert Tips",
+            "description": "Get skincare advice from our community of experts and enthusiasts."
+          }
+        },
+        {
+          "type": "highlight",
+          "settings": {
+            "title": "Product Reviews",
+            "description": "Read honest reviews from real customers who've tried our products."
+          }
+        },
+        {
+          "type": "highlight",
+          "settings": {
+            "title": "Routine Sharing",
+            "description": "Share your skincare routine and discover new ways to care for your skin."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

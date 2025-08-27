@@ -1,0 +1,94 @@
+{% style %}
+  {% # Loads all font variantions with display: swap %}
+  {{ settings.type_primary_font | font_face: font_display: 'swap' }}
+  {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+  {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+  {{ settings.type_primary_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+
+  :root {
+    /* Typography */
+    --font-primary--family: 'Inter', {{ settings.type_primary_font.family }}, {{ settings.type_primary_font.fallback_families }};
+    --font-accent--family: 'JetBrains Mono', 'Courier New', monospace;
+    --font-primary--style: {{ settings.type_primary_font.style }};
+    --font-primary--weight: {{ settings.type_primary_font.weight }};
+    
+    /* Layout */
+    --page-width: 100%;
+    --page-max-width: 1400px;
+    --page-margin: 20px;
+    
+    /* Versed Brand Colors */
+    --color-sage-green: #9FA696;
+    --color-sage-green-dark: #8A9385;
+    --color-sage-green-light: #B4C0AC;
+    --color-warm-cream: #F1E9DE;
+    --color-warm-beige: #ECE3D0;
+    --color-soft-pink: #F4E6E0;
+    --color-warm-brown: #C5A572;
+    --color-light-gray: #F5F5F5;
+    --color-pure-white: #FFFFFF;
+    --color-deep-black: #000000;
+    
+    /* Semantic Colors */
+    --color-background: var(--color-pure-white);
+    --color-foreground: var(--color-deep-black);
+    --color-primary: var(--color-sage-green);
+    --color-primary-hover: var(--color-sage-green-dark);
+    --color-primary-light: var(--color-sage-green-light);
+    --color-secondary: var(--color-warm-cream);
+    --color-accent: var(--color-soft-pink);
+    --color-text-muted: #6B7280;
+    --color-border: #E5E7EB;
+    
+    /* Button Colors */
+    --btn-primary-bg: var(--color-deep-black);
+    --btn-primary-hover: #1a1a1a;
+    --btn-primary-text: var(--color-pure-white);
+    --btn-secondary-bg: transparent;
+    --btn-secondary-border: var(--color-deep-black);
+    --btn-secondary-text: var(--color-deep-black);
+    --btn-secondary-hover-bg: var(--color-deep-black);
+    --btn-secondary-hover-text: var(--color-pure-white);
+    --btn-accent-bg: var(--color-sage-green);
+    --btn-accent-hover: var(--color-sage-green-dark);
+    --btn-accent-text: var(--color-pure-white);
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+    
+    /* Typography Scale */
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+    --font-size-4xl: 2.25rem;
+    --font-size-5xl: 3rem;
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 9999px;
+    --style-border-radius-inputs: var(--radius-sm);
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease-out;
+    --transition-base: 0.25s ease-out;
+    --transition-slow: 0.35s ease-out;
+  }
+{% endstyle %}

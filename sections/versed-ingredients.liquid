@@ -1,0 +1,583 @@
+<section class="versed-ingredients">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title | default: "Ingredient Transparency" }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: "We believe you have the right to know exactly what goes into our products" }}</p>
+    </div>
+    
+    <div class="ingredients-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'ingredient' %}
+          <div class="ingredient-card">
+            {% if block.settings.image %}
+              <div class="ingredient-image">
+                <img src="{{ block.settings.image | img_url: '200x200' }}" alt="{{ block.settings.name }}">
+              </div>
+            {% endif %}
+            
+            <div class="ingredient-content">
+              <h3 class="ingredient-name">{{ block.settings.name }}</h3>
+              <div class="ingredient-source">{{ block.settings.source }}</div>
+              <p class="ingredient-description">{{ block.settings.description }}</p>
+              
+              <div class="ingredient-benefits">
+                <h4>Benefits:</h4>
+                <ul>
+                  {% assign benefits = block.settings.benefits | split: ',' %}
+                  {% for benefit in benefits %}
+                    <li>{{ benefit | strip }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+              
+              {% if block.settings.learn_more_url %}
+                <a href="{{ block.settings.learn_more_url }}" class="ingredient-link">
+                  Learn More →
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.show_full_ingredients %}
+      <div class="full-ingredients-cta">
+        <div class="full-ingredients-cta-content">
+          <h3>{{ section.settings.ingredients_cta_title | default: "Want to see all ingredients?" }}</h3>
+          <p>{{ section.settings.ingredients_cta_description | default: "Every product page includes a complete, transparent ingredient list with detailed explanations." }}</p>
+          
+          <a href="{{ section.settings.ingredients_cta_url }}" class="btn btn-secondary">
+            {{ section.settings.ingredients_cta_text | default: "VIEW ALL INGREDIENTS" }}
+          </a>
+          
+          <div class="cta-features">
+            <div class="cta-feature">
+              <div class="cta-feature-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="cta-feature-text">Complete Transparency</span>
+            </div>
+            
+            <div class="cta-feature">
+              <div class="cta-feature-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="cta-feature-text">Detailed Explanations</span>
+            </div>
+            
+            <div class="cta-feature">
+              <div class="cta-feature-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="cta-feature-text">Clean Ingredients</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+.versed-ingredients {
+  padding: 5rem 0;
+  background: #FFFFFF;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #000000;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.ingredients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.ingredient-card {
+  background: #F9F9F9;
+  border-radius: 12px;
+  padding: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ingredient-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.ingredient-image {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.ingredient-image img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.ingredient-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.ingredient-source {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.ingredient-description {
+  color: #333;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.ingredient-benefits {
+  margin-bottom: 1.5rem;
+}
+
+.ingredient-benefits h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.ingredient-benefits ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ingredient-benefits li {
+  position: relative;
+  padding-left: 1.2rem;
+  margin-bottom: 0.3rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.ingredient-benefits li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.ingredient-link {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.ingredient-link:hover {
+  color: #666;
+}
+
+.full-ingredients-cta {
+  position: relative;
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--color-light-gray) 0%, var(--color-pure-white) 100%);
+  padding: var(--spacing-3xl) 0;
+  text-align: center;
+  overflow: hidden;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.full-ingredients-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='dots' x='0' y='0' width='20' height='20' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='10' cy='10' r='1' fill='%239FA696' opacity='0.1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23dots)'/%3E%3C/svg%3E") repeat;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+.full-ingredients-cta > * {
+  position: relative;
+  z-index: 2;
+}
+
+.full-ingredients-cta-content {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: 0 var(--page-margin);
+}
+
+.full-ingredients-cta h3 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  color: var(--color-foreground);
+  margin-bottom: var(--spacing-lg);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s ease-out 0.2s forwards;
+}
+
+.full-ingredients-cta p {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-2xl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease-out 0.4s forwards;
+}
+
+.full-ingredients-cta .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  background: var(--color-deep-black);
+  color: var(--color-pure-white);
+  border: 2px solid var(--color-deep-black);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--font-size-base);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease-out 0.6s forwards;
+}
+
+.full-ingredients-cta .btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.full-ingredients-cta .btn-secondary:hover::before {
+  left: 100%;
+}
+
+.full-ingredients-cta .btn-secondary:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(159, 166, 150, 0.3);
+}
+
+.full-ingredients-cta .btn-secondary::after {
+  content: '→';
+  margin-left: var(--spacing-xs);
+  transition: transform var(--transition-base);
+}
+
+.full-ingredients-cta .btn-secondary:hover::after {
+  transform: translateX(4px);
+}
+
+/* Key features below the CTA */
+.cta-features {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-2xl);
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease-out 0.8s forwards;
+}
+
+.cta-feature {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background: rgba(255, 255, 255, 0.7);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-sm);
+}
+
+.cta-feature-icon {
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+}
+
+.cta-feature-text {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-foreground);
+}
+
+/* Animation keyframes */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .versed-ingredients {
+    padding: 3rem 0;
+  }
+  
+  .ingredients-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .ingredient-card {
+    padding: 1.5rem;
+  }
+  
+  .full-ingredients-cta {
+    min-height: 300px;
+    padding: var(--spacing-2xl) 0;
+  }
+  
+  .full-ingredients-cta-content {
+    padding: 0 var(--spacing-lg);
+  }
+  
+  .cta-features {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+  
+  .cta-feature {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .full-ingredients-cta {
+    min-height: 350px;
+  }
+  
+  .full-ingredients-cta-content {
+    padding: 0 var(--spacing-md);
+  }
+  
+  .full-ingredients-cta .btn-secondary {
+    width: 100%;
+    max-width: 300px;
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .full-ingredients-cta h3,
+  .full-ingredients-cta p,
+  .full-ingredients-cta .btn-secondary,
+  .cta-features {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .full-ingredients-cta .btn-secondary::before {
+    display: none;
+  }
+  
+  .full-ingredients-cta .btn-secondary:hover {
+    transform: none;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Versed Ingredients",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Ingredient Transparency"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "We believe you have the right to know exactly what goes into our products"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_full_ingredients",
+      "label": "Show Full Ingredients CTA",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "ingredients_cta_title",
+      "label": "Ingredients CTA Title",
+      "default": "Want to see all ingredients?"
+    },
+    {
+      "type": "textarea",
+      "id": "ingredients_cta_description",
+      "label": "Ingredients CTA Description",
+      "default": "Every product page includes a complete, transparent ingredient list with detailed explanations."
+    },
+    {
+      "type": "text",
+      "id": "ingredients_cta_text",
+      "label": "Ingredients CTA Button Text",
+      "default": "View All Ingredients"
+    },
+    {
+      "type": "url",
+      "id": "ingredients_cta_url",
+      "label": "Ingredients CTA URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Ingredient Name",
+          "default": "Hyaluronic Acid"
+        },
+        {
+          "type": "text",
+          "id": "source",
+          "label": "Ingredient Source",
+          "default": "Naturally derived"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "A powerful humectant that can hold up to 1000 times its weight in water, providing intense hydration."
+        },
+        {
+          "type": "textarea",
+          "id": "benefits",
+          "label": "Benefits (comma separated)",
+          "default": "Deep hydration, Plumps skin, Reduces fine lines, Suitable for all skin types"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Ingredient Image"
+        },
+        {
+          "type": "url",
+          "id": "learn_more_url",
+          "label": "Learn More URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Versed Ingredients",
+      "blocks": [
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Hyaluronic Acid",
+            "source": "Naturally derived",
+            "description": "A powerful humectant that can hold up to 1000 times its weight in water, providing intense hydration.",
+            "benefits": "Deep hydration, Plumps skin, Reduces fine lines, Suitable for all skin types"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Niacinamide",
+            "source": "Vitamin B3 derivative",
+            "description": "A versatile ingredient that helps regulate oil production and minimize the appearance of pores.",
+            "benefits": "Controls oil, Minimizes pores, Evens skin tone, Strengthens barrier"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Vitamin C",
+            "source": "Antioxidant powerhouse",
+            "description": "A potent antioxidant that brightens skin and protects against environmental damage.",
+            "benefits": "Brightens complexion, Protects from free radicals, Stimulates collagen, Fades dark spots"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

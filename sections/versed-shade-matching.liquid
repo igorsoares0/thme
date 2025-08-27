@@ -1,0 +1,725 @@
+<section class="versed-shade-matching">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title | default: "Find Your Perfect Shade" }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: "Use our advanced shade matching technology to discover your ideal foundation match" }}</p>
+    </div>
+    
+    <div class="shade-matching-content">
+      <div class="matching-tool">
+        <div class="tool-header">
+          <h3>{{ section.settings.tool_title | default: "Shade Matching Tool" }}</h3>
+          <p>{{ section.settings.tool_description | default: "Upload a photo or answer a few questions to find your perfect match" }}</p>
+        </div>
+        
+        <div class="matching-methods">
+          <div class="method-tabs">
+            <button class="tab-button active" data-tab="photo">Photo Match</button>
+            <button class="tab-button" data-tab="quiz">Shade Quiz</button>
+            <button class="tab-button" data-tab="manual">Manual Select</button>
+          </div>
+          
+          <div class="tab-content active" id="photo-tab">
+            <div class="photo-upload">
+              <div class="upload-area">
+                <div class="upload-icon">📷</div>
+                <h4>Upload Your Photo</h4>
+                <p>Take a selfie in natural lighting for the most accurate match</p>
+                <button class="btn btn-primary upload-btn">Choose Photo</button>
+                <input type="file" accept="image/*" style="display: none;">
+              </div>
+              
+              <div class="photo-tips">
+                <h5>Tips for best results:</h5>
+                <ul>
+                  <li>Use natural lighting</li>
+                  <li>Remove makeup from face</li>
+                  <li>Look directly at camera</li>
+                  <li>Avoid shadows</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-content" id="quiz-tab">
+            <div class="shade-quiz">
+              <div class="quiz-questions">
+                {% for block in section.blocks %}
+                  {% if block.type == 'question' %}
+                    <div class="quiz-question">
+                      <h4>{{ block.settings.question }}</h4>
+                      <div class="quiz-options">
+                        {% assign options = block.settings.options | split: ',' %}
+                        {% for option in options %}
+                          <label class="quiz-option">
+                            <input type="radio" name="question_{{ forloop.index }}" value="{{ option | strip }}">
+                            <span>{{ option | strip }}</span>
+                          </label>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+              <button class="btn btn-primary find-shades-btn">Find My Shades</button>
+            </div>
+          </div>
+          
+          <div class="tab-content" id="manual-tab">
+            <div class="manual-selection">
+              <h4>Select Your Undertone</h4>
+              <div class="undertone-options">
+                <label class="undertone-option">
+                  <input type="radio" name="undertone" value="cool">
+                  <span class="undertone-swatch cool"></span>
+                  <span>Cool</span>
+                </label>
+                <label class="undertone-option">
+                  <input type="radio" name="undertone" value="neutral">
+                  <span class="undertone-swatch neutral"></span>
+                  <span>Neutral</span>
+                </label>
+                <label class="undertone-option">
+                  <input type="radio" name="undertone" value="warm">
+                  <span class="undertone-swatch warm"></span>
+                  <span>Warm</span>
+                </label>
+              </div>
+              
+              <h4>Select Your Depth</h4>
+              <div class="depth-slider">
+                <input type="range" min="1" max="40" value="20" class="slider">
+                <div class="depth-labels">
+                  <span>Light</span>
+                  <span>Medium</span>
+                  <span>Deep</span>
+                </div>
+              </div>
+              
+              <button class="btn btn-primary find-shades-btn">Find My Shades</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="results-area" style="display: none;">
+          <h3>Your Perfect Matches</h3>
+          <div class="shade-results">
+            <!-- Results will be dynamically populated -->
+          </div>
+        </div>
+      </div>
+      
+      <div class="shade-info">
+        <div class="shade-grid">
+          {% for block in section.blocks %}
+            {% if block.type == 'shade' %}
+              <div class="shade-sample">
+                <div class="shade-swatch" style="background-color: {{ block.settings.color }}"></div>
+                <div class="shade-info">
+                  <h4 class="shade-name">{{ block.settings.name }}</h4>
+                  <p class="shade-description">{{ block.settings.description }}</p>
+                  {% if block.settings.product_url %}
+                    <a href="{{ block.settings.product_url }}" class="shade-link">Shop Now</a>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        
+        {% if section.settings.show_virtual_try %}
+          <div class="virtual-try-on">
+            <h3>{{ section.settings.virtual_title | default: "Virtual Try-On" }}</h3>
+            <p>{{ section.settings.virtual_description | default: "See how our shades look on you with AR technology" }}</p>
+            <button class="btn btn-secondary virtual-try-btn">Try Virtual Makeup</button>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.versed-shade-matching {
+  padding: 5rem 0;
+  background: #F9F9F9;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #000000;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.shade-matching-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+.matching-tool {
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.tool-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.tool-header h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  color: #666;
+  line-height: 1.4;
+}
+
+.method-tabs {
+  display: flex;
+  border-bottom: 1px solid #E0E0E0;
+  margin-bottom: 2rem;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  background: transparent;
+  color: #666;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-button.active {
+  color: #000000;
+  border-bottom: 2px solid #000000;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.upload-area {
+  text-align: center;
+  padding: 3rem 2rem;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.upload-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.upload-area h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.upload-area p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.photo-tips {
+  background: #F5F5F5;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.photo-tips h5 {
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 1rem;
+}
+
+.photo-tips ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.photo-tips li {
+  position: relative;
+  padding-left: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.photo-tips li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.quiz-question {
+  margin-bottom: 2rem;
+}
+
+.quiz-question h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 1rem;
+}
+
+.quiz-options {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quiz-option:hover {
+  border-color: #000000;
+}
+
+.quiz-option input {
+  margin-right: 0.75rem;
+}
+
+.undertone-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.undertone-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.undertone-option:hover {
+  border-color: #000000;
+}
+
+.undertone-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+}
+
+.undertone-swatch.cool {
+  background: linear-gradient(45deg, #F4C2C2, #FFB6C1);
+}
+
+.undertone-swatch.neutral {
+  background: linear-gradient(45deg, #DEB887, #F5DEB3);
+}
+
+.undertone-swatch.warm {
+  background: linear-gradient(45deg, #CD853F, #D2B48C);
+}
+
+.depth-slider {
+  margin-bottom: 2rem;
+}
+
+.slider {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.depth-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: #000000;
+  color: #FFFFFF;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background: #333;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #000000;
+  border: 2px solid #000000;
+}
+
+.btn-secondary:hover {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.shade-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.shade-sample {
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.shade-sample:hover {
+  transform: translateY(-3px);
+}
+
+.shade-swatch {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  border: 2px solid #E0E0E0;
+}
+
+.shade-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.shade-description {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.shade-link {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.shade-link:hover {
+  text-decoration: underline;
+}
+
+.virtual-try-on {
+  background: #FFFFFF;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.virtual-try-on h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 1rem;
+}
+
+.virtual-try-on p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .versed-shade-matching {
+    padding: 3rem 0;
+  }
+  
+  .shade-matching-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .matching-tool {
+    padding: 1.5rem;
+  }
+  
+  .method-tabs {
+    flex-direction: column;
+  }
+  
+  .tab-button {
+    border-bottom: 1px solid #E0E0E0;
+  }
+  
+  .undertone-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .shade-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .shade-grid {
+    grid-template-columns: 1fr;
+  }
+}
+{% endstylesheet %}
+
+{% javascript %}
+// Tab switching functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabContents = document.querySelectorAll('.tab-content');
+  
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const tabId = this.getAttribute('data-tab');
+      
+      // Remove active class from all tabs
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+      
+      // Add active class to clicked tab
+      this.classList.add('active');
+      document.getElementById(tabId + '-tab').classList.add('active');
+    });
+  });
+  
+  // File upload handling
+  const uploadBtn = document.querySelector('.upload-btn');
+  const fileInput = document.querySelector('input[type="file"]');
+  
+  if (uploadBtn && fileInput) {
+    uploadBtn.addEventListener('click', function() {
+      fileInput.click();
+    });
+    
+    fileInput.addEventListener('change', function() {
+      if (this.files && this.files[0]) {
+        // Here you would typically upload the file and process it
+        console.log('File selected:', this.files[0].name);
+      }
+    });
+  }
+});
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Versed Shade Matching",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Find Your Perfect Shade"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Use our advanced shade matching technology to discover your ideal foundation match"
+    },
+    {
+      "type": "text",
+      "id": "tool_title",
+      "label": "Tool Title",
+      "default": "Shade Matching Tool"
+    },
+    {
+      "type": "textarea",
+      "id": "tool_description",
+      "label": "Tool Description",
+      "default": "Upload a photo or answer a few questions to find your perfect match"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_virtual_try",
+      "label": "Show Virtual Try-On",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "virtual_title",
+      "label": "Virtual Try-On Title",
+      "default": "Virtual Try-On"
+    },
+    {
+      "type": "textarea",
+      "id": "virtual_description",
+      "label": "Virtual Try-On Description",
+      "default": "See how our shades look on you with AR technology"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Quiz Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What's your skin tone?"
+        },
+        {
+          "type": "textarea",
+          "id": "options",
+          "label": "Options (comma separated)",
+          "default": "Fair, Light, Medium, Tan, Deep"
+        }
+      ]
+    },
+    {
+      "type": "shade",
+      "name": "Foundation Shade",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Shade Name",
+          "default": "Porcelain"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Shade Color",
+          "default": "#F5E6D3"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Shade Description",
+          "default": "Perfect for fair skin with cool undertones"
+        },
+        {
+          "type": "url",
+          "id": "product_url",
+          "label": "Product URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Versed Shade Matching",
+      "blocks": [
+        {
+          "type": "question",
+          "settings": {
+            "question": "What's your skin tone?",
+            "options": "Fair, Light, Medium, Tan, Deep"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "What are your undertones?",
+            "options": "Cool (pink/red), Neutral (balanced), Warm (yellow/golden)"
+          }
+        },
+        {
+          "type": "shade",
+          "settings": {
+            "name": "Porcelain",
+            "color": "#F5E6D3",
+            "description": "Perfect for fair skin with cool undertones"
+          }
+        },
+        {
+          "type": "shade",
+          "settings": {
+            "name": "Light Beige",
+            "color": "#E8D0B8",
+            "description": "Ideal for light skin with neutral undertones"
+          }
+        },
+        {
+          "type": "shade",
+          "settings": {
+            "name": "Medium Tan",
+            "color": "#D4B896",
+            "description": "Great for medium skin with warm undertones"
+          }
+        },
+        {
+          "type": "shade",
+          "settings": {
+            "name": "Deep Caramel",
+            "color": "#C19A6B",
+            "description": "Perfect for deeper skin with golden undertones"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

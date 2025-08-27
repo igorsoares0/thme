@@ -1,0 +1,518 @@
+<section class="versed-reviews">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title | default: "What Our Community Says" }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: "Real reviews from real customers who love their skin" }}</p>
+    </div>
+    
+    <div class="reviews-container">
+      <div class="reviews-grid">
+        {% for block in section.blocks %}
+          {% if block.type == 'review' %}
+            <div class="review-card">
+              <div class="review-header">
+                <div class="review-rating">
+                  {% assign rating = block.settings.rating | default: 5 %}
+                  {% for i in (1..5) %}
+                    <span class="star {% if i <= rating %}filled{% endif %}">★</span>
+                  {% endfor %}
+                </div>
+                
+                {% if block.settings.verified %}
+                  <div class="verified-badge">
+                    <span>✓ Verified Purchase</span>
+                  </div>
+                {% endif %}
+              </div>
+              
+              <blockquote class="review-text">
+                "{{ block.settings.review_text }}"
+              </blockquote>
+              
+              <div class="review-footer">
+                <div class="reviewer-info">
+                  <div class="reviewer-details">
+                    <strong class="reviewer-name">{{ block.settings.reviewer_name }}</strong>
+                    {% if block.settings.reviewer_age %}
+                      <span class="reviewer-age">{{ block.settings.reviewer_age }} years old</span>
+                    {% endif %}
+                    {% if block.settings.skin_type %}
+                      <span class="skin-type">{{ block.settings.skin_type }} skin</span>
+                    {% endif %}
+                  </div>
+                  
+                  {% if block.settings.reviewer_image %}
+                    <div class="reviewer-image">
+                      <img src="{{ block.settings.reviewer_image | img_url: '60x60' }}" alt="{{ block.settings.reviewer_name }}">
+                    </div>
+                  {% endif %}
+                </div>
+                
+                {% if block.settings.product_name %}
+                  <div class="reviewed-product">
+                    <span class="product-label">Product:</span>
+                    <a href="{{ block.settings.product_url }}" class="product-link">{{ block.settings.product_name }}</a>
+                  </div>
+                {% endif %}
+                
+                {% if block.settings.review_date %}
+                  <div class="review-date">{{ block.settings.review_date }}</div>
+                {% endif %}
+              </div>
+              
+              {% if block.settings.review_image %}
+                <div class="review-image">
+                  <img src="{{ block.settings.review_image | img_url: '300x300' }}" alt="Customer photo">
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    
+    {% if section.settings.show_cta %}
+      <div class="reviews-cta">
+        <div class="reviews-cta-content">
+          <h3>{{ section.settings.cta_title | default: "Share Your Experience" }}</h3>
+          <p>{{ section.settings.cta_description | default: "We'd love to hear about your skincare journey with Versed" }}</p>
+          <a href="{{ section.settings.cta_url }}" class="btn btn-primary">
+            {{ section.settings.cta_text | default: "Write a Review" }}
+          </a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+.versed-reviews {
+  padding: 5rem 0;
+  background: #FFFFFF;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #000000;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.review-card {
+  background: #F9F9F9;
+  border-radius: 12px;
+  padding: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.review-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.review-rating {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.star {
+  color: #ddd;
+  font-size: 1.2rem;
+}
+
+.star.filled {
+  color: #FFD700;
+}
+
+.verified-badge {
+  font-size: 0.8rem;
+  color: #4CAF50;
+  font-weight: 500;
+}
+
+.review-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  margin: 1.5rem 0;
+  font-style: italic;
+}
+
+.review-footer {
+  margin-bottom: 1rem;
+}
+
+.reviewer-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.reviewer-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.reviewer-name {
+  color: #000000;
+  font-size: 1rem;
+}
+
+.reviewer-age,
+.skin-type {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.reviewer-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.reviewer-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reviewed-product {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.product-label {
+  color: #666;
+}
+
+.product-link {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.product-link:hover {
+  text-decoration: underline;
+}
+
+.review-date {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.review-image {
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.review-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.reviews-cta {
+  position: relative;
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--color-light-gray) 0%, var(--color-pure-white) 100%);
+  padding: var(--spacing-3xl) 0;
+  text-align: center;
+  overflow: hidden;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reviews-cta-content {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: 0 var(--page-margin);
+}
+
+.reviews-cta h3 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 400;
+  color: var(--color-foreground);
+  margin-bottom: var(--spacing-lg);
+  letter-spacing: -0.02em;
+}
+
+.reviews-cta p {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-xl);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: #000000;
+  color: #FFFFFF;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #333;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .versed-reviews {
+    padding: 3rem 0;
+  }
+  
+  .reviews-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .review-card {
+    padding: 1.5rem;
+  }
+  
+  .reviewer-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .reviews-cta {
+    padding: 2rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .review-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Versed Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "What Our Community Says"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Real reviews from real customers who love their skin"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show Review CTA",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "CTA Title",
+      "default": "Share Your Experience"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_description",
+      "label": "CTA Description",
+      "default": "We'd love to hear about your skincare journey with Versed"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "Write a Review"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Customer Review",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "This product completely transformed my skin! I can't believe the difference it made."
+        },
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer Name",
+          "default": "Anonymous"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_age",
+          "label": "Reviewer Age"
+        },
+        {
+          "type": "select",
+          "id": "skin_type",
+          "label": "Skin Type",
+          "options": [
+            { "value": "normal", "label": "Normal" },
+            { "value": "dry", "label": "Dry" },
+            { "value": "oily", "label": "Oily" },
+            { "value": "combination", "label": "Combination" },
+            { "value": "sensitive", "label": "Sensitive" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "reviewer_image",
+          "label": "Reviewer Photo"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product Name"
+        },
+        {
+          "type": "url",
+          "id": "product_url",
+          "label": "Product URL"
+        },
+        {
+          "type": "text",
+          "id": "review_date",
+          "label": "Review Date"
+        },
+        {
+          "type": "image_picker",
+          "id": "review_image",
+          "label": "Review Photo"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Verified Purchase",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Versed Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "This cleanser is amazing! My skin feels so clean and smooth after every use. It's gentle but effective.",
+            "reviewer_name": "Jessica M.",
+            "reviewer_age": "29",
+            "skin_type": "combination",
+            "product_name": "Doux Cleanser",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "I've been using this moisturizer for 3 months now and my dry skin has never looked better. Highly recommend!",
+            "reviewer_name": "Amanda K.",
+            "reviewer_age": "34",
+            "skin_type": "dry",
+            "product_name": "Day Maker Morning Moisturizer",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 4,
+            "review_text": "Great serum! I noticed a difference in my skin texture within the first week. Will definitely repurchase.",
+            "reviewer_name": "Taylor R.",
+            "reviewer_age": "26",
+            "skin_type": "normal",
+            "product_name": "Just Breathe Clarifying Serum",
+            "verified": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

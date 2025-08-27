@@ -1,0 +1,678 @@
+<section class="versed-social">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title | default: "Follow Our Journey" }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: "Join our community and see how real customers are using our products" }}</p>
+      
+      {% if section.settings.hashtag %}
+        <div class="hashtag-display">
+          <span class="hashtag">#{{ section.settings.hashtag }}</span>
+          <span class="hashtag-instruction">{{ section.settings.hashtag_instruction | default: "Tag us to be featured!" }}</span>
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="social-content">
+      <div class="social-feeds">
+        <div class="instagram-feed">
+          <div class="feed-header">
+            <h3>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/>
+              </svg>
+              Instagram
+            </h3>
+            <a href="{{ section.settings.instagram_url }}" class="follow-link">Follow Us</a>
+          </div>
+          
+          <div class="feed-grid">
+            {% for block in section.blocks %}
+              {% if block.type == 'instagram_post' %}
+                <div class="social-post instagram-post">
+                  <div class="post-image">
+                    {% if block.settings.image %}
+                      <img src="{{ block.settings.image | img_url: '300x300' }}" alt="Instagram post">
+                    {% endif %}
+                    <div class="post-overlay">
+                      <div class="post-stats">
+                        {% if block.settings.likes %}
+                          <span class="likes">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="currentColor"/>
+                            </svg>
+                            {{ block.settings.likes }}
+                          </span>
+                        {% endif %}
+                        {% if block.settings.comments %}
+                          <span class="comments">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="currentColor"/>
+                            </svg>
+                            {{ block.settings.comments }}
+                          </span>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {% if block.settings.caption %}
+                    <div class="post-caption">
+                      <p>{{ block.settings.caption | truncate: 100 }}</p>
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        
+        <div class="social-sidebar">
+          <div class="social-profiles">
+            <h3>Connect With Us</h3>
+            <div class="social-links">
+              {% if section.settings.instagram_url %}
+                <a href="{{ section.settings.instagram_url }}" class="social-link instagram">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/>
+                  </svg>
+                  <span>Instagram</span>
+                  {% if section.settings.instagram_followers %}
+                    <span class="follower-count">{{ section.settings.instagram_followers }}</span>
+                  {% endif %}
+                </a>
+              {% endif %}
+              
+              {% if section.settings.tiktok_url %}
+                <a href="{{ section.settings.tiktok_url }}" class="social-link tiktok">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-2.909 2.909 2.896 2.896 0 0 1-2.909-2.909 2.896 2.896 0 0 1 2.909-2.909c.301 0 .591.041.864.115V9.24a6.33 6.33 0 0 0-.864-.115 6.48 6.48 0 0 0-6.477 6.477 6.48 6.48 0 0 0 6.477 6.477 6.48 6.48 0 0 0 6.477-6.477V8.862a8.25 8.25 0 0 0 4.656 1.439v-3.445a4.834 4.834 0 0 1-1.009-.17z" fill="currentColor"/>
+                  </svg>
+                  <span>TikTok</span>
+                  {% if section.settings.tiktok_followers %}
+                    <span class="follower-count">{{ section.settings.tiktok_followers }}</span>
+                  {% endif %}
+                </a>
+              {% endif %}
+              
+              {% if section.settings.youtube_url %}
+                <a href="{{ section.settings.youtube_url }}" class="social-link youtube">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="currentColor"/>
+                  </svg>
+                  <span>YouTube</span>
+                  {% if section.settings.youtube_followers %}
+                    <span class="follower-count">{{ section.settings.youtube_followers }}</span>
+                  {% endif %}
+                </a>
+              {% endif %}
+              
+              {% if section.settings.twitter_url %}
+                <a href="{{ section.settings.twitter_url }}" class="social-link twitter">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" fill="currentColor"/>
+                  </svg>
+                  <span>Twitter</span>
+                  {% if section.settings.twitter_followers %}
+                    <span class="follower-count">{{ section.settings.twitter_followers }}</span>
+                  {% endif %}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+          
+          {% if section.settings.show_ugc_prompt %}
+            <div class="ugc-prompt">
+              <h3>{{ section.settings.ugc_title | default: "Share Your Story" }}</h3>
+              <p>{{ section.settings.ugc_description | default: "Show us how you use our products and get featured on our page!" }}</p>
+              
+              <div class="share-steps">
+                {% assign steps = section.settings.share_steps | split: '|' %}
+                {% for step in steps %}
+                  <div class="share-step">
+                    <span class="step-number">{{ forloop.index }}</span>
+                    <span class="step-text">{{ step | strip }}</span>
+                  </div>
+                {% endfor %}
+              </div>
+              
+              {% if section.settings.ugc_cta_url %}
+                <a href="{{ section.settings.ugc_cta_url }}" class="btn btn-secondary">
+                  {{ section.settings.ugc_cta_text | default: "Share Now" }}
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.versed-social {
+  padding: 5rem 0;
+  background: #FFFFFF;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #000000;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  line-height: 1.5;
+}
+
+.hashtag-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hashtag {
+  display: inline-block;
+  background: linear-gradient(135deg, #000000, #333);
+  color: #FFFFFF;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.hashtag-instruction {
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+}
+
+.social-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+}
+
+.feed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.feed-header h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #000000;
+}
+
+.follow-link {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border: 2px solid #000000;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.follow-link:hover {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.feed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.instagram-post {
+  background: #FFFFFF;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.instagram-post:hover {
+  transform: translateY(-3px);
+}
+
+.post-image {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.post-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.instagram-post:hover .post-overlay {
+  opacity: 1;
+}
+
+.post-stats {
+  display: flex;
+  gap: 1rem;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+.post-stats span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.post-caption {
+  padding: 1rem;
+}
+
+.post-caption p {
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.social-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.social-profiles,
+.ugc-prompt {
+  background: #F9F9F9;
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.social-profiles h3,
+.ugc-prompt h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 1.5rem;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #FFFFFF;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #000000;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.social-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.social-link span:first-of-type {
+  font-weight: 500;
+  flex: 1;
+}
+
+.follower-count {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 400;
+}
+
+.ugc-prompt p {
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.share-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.share-step {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: #000000;
+  color: #FFFFFF;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.step-text {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: #000000;
+  border: 2px solid #000000;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+@media (max-width: 768px) {
+  .versed-social {
+    padding: 3rem 0;
+  }
+  
+  .social-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .social-sidebar {
+    order: -1;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .feed-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .social-profiles,
+  .ugc-prompt {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .feed-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .feed-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .social-links {
+    gap: 0.75rem;
+  }
+  
+  .social-link {
+    padding: 0.75rem;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Versed Social Media",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Follow Our Journey"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Join our community and see how real customers are using our products"
+    },
+    {
+      "type": "text",
+      "id": "hashtag",
+      "label": "Brand Hashtag",
+      "default": "VersedSkin"
+    },
+    {
+      "type": "text",
+      "id": "hashtag_instruction",
+      "label": "Hashtag Instruction",
+      "default": "Tag us to be featured!"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "text",
+      "id": "instagram_followers",
+      "label": "Instagram Followers Count",
+      "default": "125K"
+    },
+    {
+      "type": "url",
+      "id": "tiktok_url",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "text",
+      "id": "tiktok_followers",
+      "label": "TikTok Followers Count",
+      "default": "89K"
+    },
+    {
+      "type": "url",
+      "id": "youtube_url",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "text",
+      "id": "youtube_followers",
+      "label": "YouTube Subscribers Count",
+      "default": "45K"
+    },
+    {
+      "type": "url",
+      "id": "twitter_url",
+      "label": "Twitter URL"
+    },
+    {
+      "type": "text",
+      "id": "twitter_followers",
+      "label": "Twitter Followers Count",
+      "default": "32K"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_ugc_prompt",
+      "label": "Show UGC Prompt",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "ugc_title",
+      "label": "UGC Section Title",
+      "default": "Share Your Story"
+    },
+    {
+      "type": "textarea",
+      "id": "ugc_description",
+      "label": "UGC Description",
+      "default": "Show us how you use our products and get featured on our page!"
+    },
+    {
+      "type": "textarea",
+      "id": "share_steps",
+      "label": "Sharing Steps (separated by |)",
+      "default": "Post your photo|Use our hashtag|Tag our account|Get featured!"
+    },
+    {
+      "type": "text",
+      "id": "ugc_cta_text",
+      "label": "UGC CTA Text",
+      "default": "Share Now"
+    },
+    {
+      "type": "url",
+      "id": "ugc_cta_url",
+      "label": "UGC CTA URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "instagram_post",
+      "name": "Instagram Post",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Post Image"
+        },
+        {
+          "type": "textarea",
+          "id": "caption",
+          "label": "Post Caption"
+        },
+        {
+          "type": "text",
+          "id": "likes",
+          "label": "Number of Likes",
+          "default": "324"
+        },
+        {
+          "type": "text",
+          "id": "comments",
+          "label": "Number of Comments",
+          "default": "15"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Versed Social Media",
+      "blocks": [
+        {
+          "type": "instagram_post",
+          "settings": {
+            "caption": "Morning glow with our Day Maker moisturizer ✨ #VersedSkin",
+            "likes": "324",
+            "comments": "15"
+          }
+        },
+        {
+          "type": "instagram_post",
+          "settings": {
+            "caption": "Clean ingredients, clear skin 💫 #CleanBeauty #VersedSkin",
+            "likes": "456",
+            "comments": "23"
+          }
+        },
+        {
+          "type": "instagram_post",
+          "settings": {
+            "caption": "Sunday self-care routine featuring our bestsellers 🌿",
+            "likes": "567",
+            "comments": "31"
+          }
+        },
+        {
+          "type": "instagram_post",
+          "settings": {
+            "caption": "Before and after using our Doux cleanser for 30 days 🙌",
+            "likes": "890",
+            "comments": "45"
+          }
+        },
+        {
+          "type": "instagram_post",
+          "settings": {
+            "caption": "Ingredient spotlight: Hyaluronic Acid for all-day hydration 💧",
+            "likes": "234",
+            "comments": "12"
+          }
+        },
+        {
+          "type": "instagram_post",
+          "settings": {
+            "caption": "Customer love: 'My skin has never felt better!' - Sarah M. ❤️",
+            "likes": "678",
+            "comments": "38"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

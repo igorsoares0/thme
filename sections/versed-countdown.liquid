@@ -1,0 +1,180 @@
+{{ 'countdown-timer.css' | asset_url | stylesheet_tag }}
+
+<div class="countdown-section">
+  <div class="countdown-container">
+    <div class="countdown-content">
+      {% if section.settings.eyebrow_text != blank %}
+        <p class="countdown-eyebrow">{{ section.settings.eyebrow_text }}</p>
+      {% endif %}
+      
+      {% if section.settings.heading != blank %}
+        <h2 class="countdown-heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      
+      {% if section.settings.subheading != blank %}
+        <p class="countdown-subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+      
+      <div class="countdown-timer" 
+           data-end-date="{{ section.settings.end_date }}" 
+           data-end-time="{{ section.settings.end_time }}">
+        <div class="countdown-item">
+          <span class="countdown-number" data-days>00</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" data-hours>00</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" data-minutes>00</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" data-seconds>00</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+      
+      {% if section.settings.cta_text != blank and section.settings.cta_url != blank %}
+        <div class="countdown-cta">
+          <a href="{{ section.settings.cta_url }}" class="btn btn-primary countdown-btn">
+            {{ section.settings.cta_text }}
+          </a>
+        </div>
+      {% endif %}
+      
+      {% if section.settings.message_after_expire != blank %}
+        <div class="countdown-expired" style="display: none;">
+          <h3>{{ section.settings.message_after_expire }}</h3>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  class CountdownTimer {
+    constructor(element) {
+      this.element = element;
+      this.endDate = element.dataset.endDate;
+      this.endTime = element.dataset.endTime;
+      this.daysElement = element.querySelector('[data-days]');
+      this.hoursElement = element.querySelector('[data-hours]');
+      this.minutesElement = element.querySelector('[data-minutes]');
+      this.secondsElement = element.querySelector('[data-seconds]');
+      this.expiredElement = element.closest('.countdown-section').querySelector('.countdown-expired');
+      this.countdownContent = element.closest('.countdown-content');
+      
+      this.targetDate = new Date(`${this.endDate}T${this.endTime}`);
+      this.init();
+    }
+    
+    init() {
+      this.updateTimer();
+      this.interval = setInterval(() => this.updateTimer(), 1000);
+    }
+    
+    updateTimer() {
+      const now = new Date().getTime();
+      const distance = this.targetDate.getTime() - now;
+      
+      if (distance < 0) {
+        this.handleExpired();
+        return;
+      }
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      this.daysElement.textContent = this.formatNumber(days);
+      this.hoursElement.textContent = this.formatNumber(hours);
+      this.minutesElement.textContent = this.formatNumber(minutes);
+      this.secondsElement.textContent = this.formatNumber(seconds);
+    }
+    
+    formatNumber(num) {
+      return num < 10 ? '0' + num : num;
+    }
+    
+    handleExpired() {
+      clearInterval(this.interval);
+      if (this.expiredElement) {
+        this.element.style.display = 'none';
+        this.expiredElement.style.display = 'block';
+      }
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    const countdownTimers = document.querySelectorAll('.countdown-timer');
+    countdownTimers.forEach(timer => new CountdownTimer(timer));
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Versed Countdown",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow Text",
+      "default": "Limited Time Offer"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Flash Sale Ends Soon"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Don't miss out on exclusive discounts on your favorite Versed products."
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "End Date (YYYY-MM-DD)",
+      "default": "2025-12-31",
+      "info": "Format: YYYY-MM-DD (e.g., 2025-12-31)"
+    },
+    {
+      "type": "text",
+      "id": "end_time",
+      "label": "End Time (HH:MM:SS)",
+      "default": "23:59:59",
+      "info": "Format: HH:MM:SS in 24-hour format (e.g., 23:59:59)"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA Button URL",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "message_after_expire",
+      "label": "Message After Timer Expires",
+      "default": "Offer has ended. Check back for new deals!"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Versed Countdown"
+    }
+  ]
+}
+{% endschema %}
